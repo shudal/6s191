@@ -53,7 +53,7 @@ def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
     # Layer 3: Dense (fully-connected) layer that transforms the LSTM output
     #   into the vocabulary size.
     # TODO: Add the Dense layer.
-    tf.keras.layers.Dense(vocab_size,activation=tf.sigmoid)
+    tf.keras.layers.Dense(vocab_size)
     ])
 
     return model

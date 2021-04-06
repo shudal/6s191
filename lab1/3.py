@@ -15,6 +15,7 @@ def generate_text(model, start_string, idx2char,char2idx,generation_length=1000)
 
     '''TODO: convert the start string to numbers (vectorize)'''
     input_eval = vectorize_string(start_string,char2idx)
+    print(input_eval)
     input_eval = tf.expand_dims(input_eval, 0)
 
     # Empty string to store our results
@@ -40,7 +41,7 @@ def generate_text(model, start_string, idx2char,char2idx,generation_length=1000)
 
         '''TODO: add the predicted character to the generated text!'''
         # Hint: consider what format the prediction is in vs. the output
-        text_generated.append(repr(idx2char[predicted_id]))
+        text_generated.append("" + idx2char[predicted_id])
 
     return (start_string + ''.join(text_generated))
 
@@ -50,6 +51,11 @@ if __name__ == '__main__':
     vocab = sorted(set(songs_joined))
     char2idx = {u: i for i, u in enumerate(vocab)}
     idx2char = np.array(vocab)
+    print('{')
+    for char,_ in zip(char2idx,range(20)):
+            print('    {:4s}: {:3d}'.format(repr(char),char2idx[char]))
+    print('    ...\n}')
+
     ### Hyperparameter setting and optimization ###
 
     # Optimization parameters:
@@ -82,9 +88,9 @@ if __name__ == '__main__':
         As you may notice, ABC files start with "X" - this may be a good start string.'''
 
     while True:
-        generated_text = generate_text(model, "X", idx2char, char2idx)  # TODO
+        generated_text = generate_text(model, "X", idx2char, char2idx,1000)  # TODO
         # generated_text = generate_text('''TODO''', start_string="X", generation_length=1000)
-        #print(generated_text)
+        print(generated_text)
         generated_songs = mdl.lab1.extract_song_snippet(generated_text)
         if len(generated_songs) > 0:
             print(generated_text)
